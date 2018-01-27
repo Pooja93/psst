@@ -15,13 +15,48 @@
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY8Qv4i1VY3STTBMUPd2zTn7MeSy-Cxgs&callback=initMap"> </script>
 
 <style>
-/* Always set the map height explicitly to define the size of the div * element that contains the map. */ #map { height: 100%; width: 75% } /* Optional: Makes the sample page fill the window. */ html, body { height: 100%; margin: 0; padding: 0; }
+/* Always set the map height explicitly to define the size of the div * element that contains the map. */ #map { height: 100%; width: 75%; float: left} /* Optional: Makes the sample page fill the window. */ html, body { height: 100%; margin: 0; padding: 0; }
+#events {height:100%;width:25%;float:right;}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 100%;
+    height: 100px;
+}
+.button_most {
+  background-color: red;
+
+}
+.button_okay {
+  background-color: orange;
+
+}
+.button_least {
+  background-color: #CCB022;
+}
 </style>
 
 
 <body>
   <div id="map"></div>
-  <div id="events"></div>
+  <div id="events">
+  <button class="button button_most">Potholes</button>
+  <button class="button button_most">Construction outside CoC</button>
+  <button class="button button_okay">Techgreen not green</button>
+  <button class="button button_okay">Bike Lanes</button>
+  <button class="button button_least">Dumpsters</button>
+  <button class="button button_least">Burger Bowl not accessible</button>
+
+
+  </div>
 <!-- Replace the value of the key parameter with your own API key. -->
 
  <script>
