@@ -1,3 +1,6 @@
+# Ignore .DS_Store in OS X
+.DS_Store
+
 # Logs
 logs
 *.log
