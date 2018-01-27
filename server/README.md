@@ -10,7 +10,7 @@ Build a Restful CRUD API for listing all events around your city.
 npm install
 ```
 
-2. Start mongodb
+2. Start mongodb in another tab
 ```bash
 mongod
 ```
@@ -18,7 +18,7 @@ mongod
 3. Run Server
 
 ```bash
-node server.js
+node run dev
 ```
 
 You can browse the apis at <http://localhost:3000>
