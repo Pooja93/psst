@@ -2,11 +2,7 @@ var Event = require('../models/event.model.js');
 
 exports.create = function (req, res) {
     // Create and Save a new Event
-    if (!req.body.content) {
-        res.status(400).send({ message: "Event can not be empty" });
-    }
-
-    var event = new Event({ title: req.body.title || "Untitled Event", content: req.body.content });
+    var event = new Event({ title: req.body.title || "Untitled Event", description: req.body.description, lattitude: req.body.lattitude, longitude: req.body.longitude, votes: req.body.votes });
 
     event.save(function (err, data) {
         console.log(data);
@@ -73,3 +69,24 @@ exports.delete = function (req, res) {
     });
 };
 
+exports.coordinates = function (req, res) {
+    // Get lattitude and longitude of an event
+    Event.findById(req.params.eventId, function (err, data) {
+        if (err) {
+            res.status(500).send({ message: "Could not retrieve event with id " + req.params.eventId });
+        } else {
+            res.send(data);
+        }
+    });
+};
+
+// exports.votes = function (req, res) {
+//     // Get votes for an event
+//     Event.findById(req.params.eventId, function (err, data) {
+//         if (err) {
+//             res.status(500).send({ message: "Could not retrieve event with id " + req.params.eventId });
+//         } else {
+//             res.send(data);
+//         }
+//     });
+// };

@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 
 var EventSchema = mongoose.Schema({
     title: String,
-    content: String
+    description: String,
+    lattitude: { type: Number, default: 33.781587 },
+    longitude: { type: Number, default: -84.407450 },
+    votes: { type: Number, default: 0 },
 }, {
         timestamps: true
     });
