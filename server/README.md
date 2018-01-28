@@ -36,7 +36,7 @@ http://localhost:3000/events
 
 3. Retrieve a single Event with eventId (GET Request)
 ```http
-http://localhost:3000/events/new/:eventId', events.findOne);
+http://localhost:3000/events/new/:eventId'
 ```
 4. Update a Event with eventId (PUT Request)
 ```http
