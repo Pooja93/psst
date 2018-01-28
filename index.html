@@ -107,72 +107,7 @@
 
 <body>
   <div id="map"></div>
-  <span id="events1" class="events">
-  <button class="button button_most" onClick="generate(1)">Potholes</button>
-  <span>
-    <button class="button_likes" onclick="likeButton(1)">
-    <i class="glyphicon glyphicon-thumbs-up"></i>
-      Votes
-    <span id="likeCount1">90</span>
-    </button>
-  </span>
-  </span>
-
-  <span id="events2" class="events">
-  <button class="button button_okay" onClick="generate(1)">Construction outside CoC</button>
-  <span>
-    <button class="button_likes" onclick="likeButton(2)">
-    <i class="glyphicon glyphicon-thumbs-up"></i>
-      Votes
-    <span id="likeCount2">80</span>
-    </button>
-  </span>
-  </span>
-
-  <span id="events3" class="events">
-  <button class="button button_okay" onClick="generate(1)">Techgreen not green</button>
-  <span>
-    <button class="button_likes" onclick="likeButton(3)">
-    <i class="glyphicon glyphicon-thumbs-up"></i>
-      Votes
-    <span id="likeCount3">55</span>
-    </button>
-  </span>
-  </span>
-
-  <span id="events4" class="events">
-  <button class="button button_okay" onClick="generate(1)">Bike Lanes</button>
-  <span>
-    <button class="button_likes" onclick="likeButton(4)">
-    <i class="glyphicon glyphicon-thumbs-up"></i>
-      Votes
-    <span id="likeCount4">40</span>
-    </button>
-  </span>
-  </span>
-
-  <span id="events5" class="events">
-  <button class="button button_least" onClick="generate(1)">Bowling Park access</button>
-  <span>
-    <button class="button_likes" onclick="likeButton(5)">
-    <i class="glyphicon glyphicon-thumbs-up"></i>
-      Votes
-    <span id="likeCount5">23</span>
-    </button>
-  </span>
-  </span>
-
-
-  <span id="events6" class="events">
-  <button class="button button_least" onClick="generate(1)">Dumpsters</button>
-  <span>
-    <button class="button_likes" onclick="likeButton(6)">
-  <i class="glyphicon glyphicon-thumbs-up"></i>
-      Like
-    <span id="likeCount6">12</span>
-    </button>
-  </span>
-  </span>
+    <div id="sideMenu"></div>
 <!-- Replace the value of the key parameter with your own API key. -->
 
  <script>
@@ -201,6 +136,62 @@ function getRandomInRange(from, to, fixed) {
     return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
     // .toFixed() returns string, so ' * 1' is a trick to convert to number
 }
+// var xhr = new XMLHttpRequest();
+// xhr.open("GET", "http://localhost:3000/events", true);
+// xhr.send();
+//
+// console.log(xhr.status);
+// console.log(xhr.statusText);
+var colors_button = ["button button_most", "button button_okay","button button_least"]
+function getEvents() {
+$.get("http://localhost:3000/events", function(data, status){
+        console.log("Data"+JSON.stringify(data)+"length"+data.length)
+        for(var idx = 0; idx< data.length; idx++) {
+          var spanContainer = document.createElement('span');
+          spanContainer.id = 'events'+idx;
+          spanContainer.className = 'events';
+          var buttonContainer = document.createElement("button");
+          buttonContainer.className = colors_button[Math.floor(idx/(data.length/3))]
+          var buttonAttribute = document.createAttribute("onClick");
+          buttonAttribute.value = 'generate(1)';
+          console.log(buttonAttribute);
+          buttonContainer.setAttributeNode(buttonAttribute);
+          buttonContainer.innerHTML = data[idx].title; // Content on Button
+          spanContainer.appendChild(buttonContainer);
+
+          var spanContainerChild = document.createElement('span');
+
+          var buttonContainerChild = document.createElement("button");
+          buttonContainerChild.className = 'button_likes';
+          var buttonAttributeChild = document.createAttribute("onclick");
+          buttonAttributeChild.value = 'likeButton('+idx+')';
+          var thumbImage = document.createElement("i");
+          thumbImage.className = 'glyphicon glyphicon-thumbs-up';
+          buttonContainerChild.setAttributeNode(buttonAttributeChild);
+          buttonContainerChild.appendChild(thumbImage);
+          buttonContainerChild.innerHTML += "Votes";
+          var spanCounter = document.createElement("span");
+          spanCounter.id = 'likeCount'+idx;
+          spanCounter.innerHTML = 1; // Content for likes
+          buttonContainerChild.appendChild(spanCounter);
+          spanContainerChild.appendChild(buttonContainerChild);
+          spanContainer.appendChild(spanContainerChild);
+          console.log(document.getElementById('sideMenu'));
+          document.getElementById('sideMenu').appendChild(spanContainer);
+        }
+    });
+
+
+  }
+
+  window.onload = getEvents;
+
+
+
+
+
+
+
 
 
  </script>
