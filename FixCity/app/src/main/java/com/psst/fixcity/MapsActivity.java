@@ -39,6 +39,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
 
+    private NetworkInterface networkInterface;
+
     private CameraPosition mCameraPosition;
     private Location mLastKnownLocation;
     // The entry point to the Fused Location Provider.
@@ -83,13 +85,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         title_field = (EditText)findViewById(R.id.title_field);
         desc_field = (EditText)findViewById(R.id.desc_field);
 
-
+        networkInterface = new NetworkInterface();
 
         //SLIDING
         slidingLayout = (SlidingUpPanelLayout)findViewById(R.id.sliding_layout);
         slidingLayout.setPanelSlideListener(onSlideListener());
         slidingLayout.setAnchorPoint(0.75f);
-
 
 
         // Construct a GeoDataClient.
@@ -275,6 +276,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
+    public void onSendClicked(View v){
+        String title = String.valueOf(title_field.getText());
+        String description = String.valueOf(desc_field.getText());
+        String user_id = "theopanag";
+        //Image ..
+        float latitude = 82.2523f;
+        float longitude = 33.2132f;
+        networkInterface.send(title, description, user_id, latitude, longitude);
+    }
 
     private void updateSelection(int sel){
 

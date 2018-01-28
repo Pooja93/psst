@@ -224,7 +224,6 @@
                     android:id="@+id/desc_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lines="4"
                     android:inputType="textMultiLine"
                     android:maxLines="5"
                     android:textSize = "20dp"
@@ -235,6 +234,13 @@
                     android:hint="(optional)"
                     android:gravity="top"
                     android:scrollbars="vertical" />
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="right"
+                    android:onClick="onSendClicked"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/submit_icon"/>
             </LinearLayout>
 
             <!--
