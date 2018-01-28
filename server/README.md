@@ -21,30 +21,30 @@ sudo mongod
 npm run dev
 ```
 
-You can browse the apis at <http://localhost:3000>
+You can browse the apis at <https://psst-hackathon.herokuapp.com>
 
 ## API Endpoints
 
 1. Create a new event (POST Request)
 ```http
-http://localhost:3000/events/new
+https://psst-hackathon.herokuapp.com/events/new
 ```
 2. Retrieve all events (GET Request)
 ```http
-http://localhost:3000/events
+https://psst-hackathon.herokuapp.com/events
 ```
 
 3. Retrieve a single Event with eventId (GET Request)
 ```http
-http://localhost:3000/events/new/:eventId
+https://psst-hackathon.herokuapp.com/events/new/:eventId
 ```
 4. Update a Event with eventId (PUT Request)
 ```http
-http://localhost:3000/events/update/:eventId
+https://psst-hackathon.herokuapp.com/events/update/:eventId
 ```
 5. Delete a Event with eventId (DELETE Request)
 ```http
-http://localhost:3000/events/delete/:eventId
+https://psst-hackathon.herokuapp.com/events/delete/:eventId
 ```
 
 ## Testing

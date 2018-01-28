@@ -13,8 +13,13 @@ app.use(bodyParser.json())
 // Configuring the database
 var dbConfig = require('./config/database.config.js');
 var mongoose = require('mongoose');
-mongoose.connect(dbConfig.url, {
-    useMongoClient: true
+mongoose.connect(dbConfig.url, (err, res) => {
+    if (err) {
+        console.log('ERROR connecting to: ' + dbConfig.url + '. ' + err);
+    } else {
+        console.log('Succeeded connected to: ' + dbConfig.url);
+    }
+    // useMongoClient: true
 });
 
 mongoose.connection.on('error', function () {
@@ -34,6 +39,7 @@ app.get('/', function (req, res) {
 require('./app/routes/event.routes.js')(app);
 
 // listen for requests
-app.listen(3000, function () {
-    console.log("Server is listening on port 3000");
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+    console.log("Server is listening on port " + port);
 });
