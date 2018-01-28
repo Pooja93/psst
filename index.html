@@ -48,12 +48,12 @@
 <body>
   <div id="map"></div>
   <div id="events">
-  <button class="button button_most">Potholes</button>
-  <button class="button button_most">Construction outside CoC</button>
-  <button class="button button_okay">Techgreen not green</button>
-  <button class="button button_okay">Bike Lanes</button>
-  <button class="button button_least">Dumpsters</button>
-  <button class="button button_least">Burger Bowl not accessible</button>
+  <button class="button button_most" onclick="generate(1)" >Potholes</button>
+  <button class="button button_most" onclick="generate(1)">Construction outside CoC</button>
+  <button class="button button_okay" onclick="generate(1)">Techgreen not green</button>
+  <button class="button button_okay" onclick="generate(1)">Bike Lanes</button>
+  <button class="button button_least" onclick="generate(1)">Dumpsters</button>
+  <button class="button button_least" onclick="generate(1)">Burger Bowl not accessible</button>
 
 
   </div>
@@ -69,12 +69,29 @@ map.fitBounds(bounds);
 var script = document.createElement('script'); // This example uses a local copy of the GeoJSON stored at // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
 script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js'; document.getElementsByTagName('head')[0].appendChild(script); } // Loop through the results array and place a marker for each // set of coordinates.
 
+var number_points = 60;
 
-window.eqfeed_callback = function(results) {
-for (var i = 0; i < results.features.length; i++) {
-var coords = results.features[i].geometry.coordinates;
-var latLng = new google.maps.LatLng(coords[1],coords[0]);
-var marker = new google.maps.Marker({ position: latLng, map: map }); } }
+function generate(num) {
+  initMap()
+  for (var i = 0; i < num; i++) {
+
+  var latLng = new google.maps.LatLng(getRandomInRange(33.771299,33.781587,3),getRandomInRange(-84.390345,-84.407450,3));
+  var marker = new google.maps.Marker({ position: latLng, map: map }); }
+
+
+}
+
+// window.eqfeed_callback = function(results) {
+//
+// for (var i = 0; i < results.features.length; i++) {
+// var coords = results.features[i].geometry.coordinates;
+// var latLng = new google.maps.LatLng(getRandomInRange(33.771299,33.781587,3),getRandomInRange(-84.390345,-84.407450,3));
+// var marker = new google.maps.Marker({ position: latLng, map: map }); } }
+
+function getRandomInRange(from, to, fixed) {
+    return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
+    // .toFixed() returns string, so ' * 1' is a trick to convert to number
+}
 
 
  </script>
