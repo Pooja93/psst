@@ -2,18 +2,18 @@ module.exports = function (app) {
 
     var events = require('../controllers/event.controller.js');
 
-    // Create a new Note
+    // Create a new Event
     app.post('/events', events.create);
 
     // Retrieve all events
     app.get('/events', events.findAll);
 
-    // Retrieve a single Note with noteId
-    app.get('/events/:noteId', events.findOne);
+    // Retrieve a single Event with eventId
+    app.get('/events/:eventId', events.findOne);
 
-    // Update a Note with noteId
-    app.put('/events/:noteId', events.update);
+    // Update a Event with eventId
+    app.put('/events/:eventId', events.update);
 
-    // Delete a Note with noteId
-    app.delete('/events/:noteId', events.delete);
+    // Delete a Event with eventId
+    app.delete('/events/:eventId', events.delete);
 }
