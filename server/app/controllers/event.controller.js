@@ -67,6 +67,7 @@ exports.delete = function (req, res) {
         if (err) {
             res.status(500).send({ message: "Could not delete event with id " + req.params.id });
         } else {
+            console.log(req.params.eventId)
             res.send({ message: "Event deleted successfully!" })
         }
     });
