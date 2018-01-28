@@ -9,7 +9,7 @@ module.exports = function (app) {
     app.get('/events', events.findAll);
 
     // Retrieve a single Event with eventId
-    app.get('/events/new/:eventId', events.findOne);
+    app.get('/events/:eventId', events.findOne);
 
     // Update a Event with eventId
     app.put('/events/update/:eventId', events.update);

@@ -69,16 +69,16 @@ exports.delete = function (req, res) {
     });
 };
 
-// exports.coordinates = function (req, res) {
-//     // Get lattitude and longitude of an event
-//     Event.findById(req.params.eventId, function (err, data) {
-//         if (err) {
-//             res.status(500).send({ message: "Could not retrieve event with id " + req.params.eventId });
-//         } else {
-//             res.send(data);
-//         }
-//     });
-// };
+exports.coordinates = function (req, res) {
+    // Get lattitude and longitude of an event
+    Event.findById(req.params.eventId, function (err, data) {
+        if (err) {
+            res.status(500).send({ message: "Could not retrieve event with id " + req.params.eventId });
+        } else {
+            res.send(data);
+        }
+    });
+};
 
 // exports.votes = function (req, res) {
 //     // Get votes for an event
