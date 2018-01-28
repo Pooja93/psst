@@ -16,10 +16,4 @@ module.exports = function (app) {
 
     // Delete a Event with eventId
     app.delete('/events/delete/:eventId', events.delete);
-
-    // Get Lattitude and Longitude given an event
-    app.get('/events/:eventId/coordinates/:coordinates');
-
-    // Get Votes for a given event
-    app.get('/events/:eventId/votes/:votes');
 }

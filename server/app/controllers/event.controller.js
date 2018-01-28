@@ -46,6 +46,9 @@ exports.update = function (req, res) {
 
         event.title = req.body.title;
         event.content = req.body.content;
+        event.votes = req.body.votes;
+        event.lattitude = req.body.lattitude;
+        event.longitude = req.body.longitude;
 
         event.save(function (err, data) {
             if (err) {
@@ -75,18 +78,20 @@ exports.coordinates = function (req, res) {
         if (err) {
             res.status(500).send({ message: "Could not retrieve event with id " + req.params.eventId });
         } else {
-            res.send(data);
+            res.send({ "lattitude": req.params.lattitude, "longitude": req.params.longitude });
         }
     });
 };
 
-// exports.votes = function (req, res) {
-//     // Get votes for an event
-//     Event.findById(req.params.eventId, function (err, data) {
-//         if (err) {
-//             res.status(500).send({ message: "Could not retrieve event with id " + req.params.eventId });
-//         } else {
-//             res.send(data);
-//         }
-//     });
-// };
+exports.votes = function (req, res) {
+    // Get votes for an event
+    console.log("hi" + req.params.votes);
+    Event.findById(req.params.eventId, function (err, data) {
+        if (err) {
+            res.status(500).send({ message: "Could not retrieve event with id " + req.params.eventId });
+        } else {
+            console.log(req.params.votes);
+            res.send(req.params.votes);
+        }
+    });
+};
