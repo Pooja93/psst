@@ -139,11 +139,11 @@ function getRandomInRange(from, to, fixed) {
 // console.log(xhr.statusText);
 var self = this
 var colors_button = ["button button_most", "button button_okay","button button_least"]
-self.data = [{"_id":"5a6d7eac2ac0eb19fc89ccc3","updatedAt":"2018-01-28T08:11:24.090Z","createdAt":"2018-01-28T07:41:32.369Z","description":"there","__v":0,"votes":3,"longitude":-84.40745,"lattitude":33.781587},{"_id":"5a6d7eb42ac0eb19fc89ccc4","updatedAt":"2018-01-28T07:41:40.766Z","createdAt":"2018-01-28T07:41:40.766Z","title":"tu","description":"ttahere","__v":0,"votes":8,"longitude":-84.40745,"lattitude":33.781587}]
+
 function getEvents() {
 $.get("http://localhost:3000/events", function(data, status){
         console.log("Data"+JSON.stringify(data)+"length"+data.length)
-
+        self.data = data
         self.data.sort(GetSortOrder("votes"))
         console.log("Sorted data"+JSON.stringify(self.data))
         print_order();
@@ -153,8 +153,9 @@ $.get("http://localhost:3000/events", function(data, status){
 
   }
   function print_order() {
+    console.log("In print_order")
     for(var idx = 0; idx< self.data.length; idx++) {
-      console.log(JSON.stringify(data[idx]))
+      console.log(JSON.stringify(self.data[idx]))
 
       var spanContainer = document.createElement('span');
       spanContainer.id = 'events'+idx;
@@ -162,26 +163,27 @@ $.get("http://localhost:3000/events", function(data, status){
       var buttonContainer = document.createElement("button");
       buttonContainer.className = colors_button[Math.floor(idx/(data.length/3))]
       var buttonAttribute = document.createAttribute("onClick");
-      buttonAttribute.value = 'generate('+data[idx].lattitude+','+data[idx].longitude+')';
+      buttonAttribute.value = 'generate('+self.data[idx].lattitude+','+self.data[idx].longitude+')';
       console.log(buttonAttribute);
       buttonContainer.setAttributeNode(buttonAttribute);
-      buttonContainer.innerHTML = data[idx].title; // Content on Button
+      buttonContainer.innerHTML = self.data[idx].title; // Content on Button
       spanContainer.appendChild(buttonContainer);
 
       var spanContainerChild = document.createElement('span');
 
       var buttonContainerChild = document.createElement("button");
       buttonContainerChild.className = 'button_likes';
+      var spanCounter = document.createElement("span");
+
       var buttonAttributeChild = document.createAttribute("onclick");
       buttonAttributeChild.value = 'likeButton('+idx+')';
       var thumbImage = document.createElement("i");
       thumbImage.className = 'glyphicon glyphicon-thumbs-up';
       buttonContainerChild.setAttributeNode(buttonAttributeChild);
       buttonContainerChild.appendChild(thumbImage);
-
-      var spanCounter = document.createElement("span");
       spanCounter.id = 'likeCount'+idx;
       spanCounter.innerHTML = " "+self.data[idx].votes; // Content for likes
+
       buttonContainerChild.appendChild(spanCounter);
       spanContainerChild.appendChild(buttonContainerChild);
       spanContainer.appendChild(spanContainerChild);
@@ -202,22 +204,41 @@ $.get("http://localhost:3000/events", function(data, status){
 }
 
 
-function likeButton(num){
-
+function likeButton(idx){
+    id = self.data[idx]._id
     console.log("In like button")
-    console.log("self data"+JSON.stringify(self.data))
+    console.log("self data"+JSON.stringify(self.data[idx]))
 
     console.log("Click");
-    var spanElement = document.getElementById("likeCount"+num);
-    var count = parseInt(spanElement.innerHTML)+1
+    var spanElement = document.getElementById("likeCount"+idx);
+    var count = self.data[idx].votes+1
     spanElement.innerHTML = " "+count
-    self.data[num].votes = count
-    $("#sideMenu").empty();
+    console.log("Before put"+count)
+    putEvent(id,count)
 
-    getEvents()
 
 
     // console.log(++spanElement.innerHTML);
+}
+
+function putEvent(id,num_votes) {
+  $.ajax({
+    type: 'PUT', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.
+    dataType: 'application/json', // Set datatype - affects Accept header
+    url: "http://localhost:3000/events/update/"+id, // A valid URL
+     // X-HTTP-Method-Override set to PUT.
+    data: {"votes": num_votes} ,// Some data e.g. Valid JSON as a string
+    success: reloadupdated()
+});
+
+
+}
+function reloadupdated() {
+  $("#sideMenu").empty();
+  setTimeout(function(){ getEvents() }, 50);
+
+
+
 }
 
 
